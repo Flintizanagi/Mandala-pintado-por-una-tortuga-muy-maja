@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mandala pintado por una tortuga muy maja</title>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+</head>
+<body>
+  <h2>Mandala pintado por una tortuga muy maja</h2>
+  <pre id="output"></pre>
+  <canvas id="mycanvas" width="600" height="600"></canvas>
+
+  <script type="text/javascript">
+    function outf(text) {
+      var mypre = document.getElementById("output");
+      mypre.innerHTML = mypre.innerHTML + text;
+    }
+
+    function runit() {
+      var prog = `
+import turtle
+t = turtle.Turtle()
+t.shape("turtle")
+t.speed(0)
+lado = 50
+colores = ["red","orange","yellow","green","blue","purple"]
+for i in range(200):
+    t.color(colores[i % 6])
+    t.circle(110)
+    t.left(127)
+    lado -= 1
+      `;
+      Sk.configure({output:outf, read:builtinRead, __future__: Sk.python3});
+      (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+      var myPromise = Sk.misceval.asyncToPromise(function() {
+          return Sk.importMainWithBody("<stdin>", false, prog, true);
+      });
+    }
+
+    function builtinRead(x) {
+      if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+          throw "File not found: '" + x + "'";
+      return Sk.builtinFiles["files"][x];
+    }
+
+    runit();
+  </script>
+</body>
+</html>

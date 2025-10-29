@@ -33,6 +33,8 @@ for i in range(200):
       `;
       Sk.configure({output:outf, read:builtinRead, __future__: Sk.python3});
       (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+      Sk.TurtleGraphics.width = 600;
+      Sk.TurtleGraphics.height = 600;
       var myPromise = Sk.misceval.asyncToPromise(function() {
           return Sk.importMainWithBody("<stdin>", false, prog, true);
       });

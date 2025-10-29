@@ -17,7 +17,7 @@
       mypre.innerHTML = mypre.innerHTML + text;
     }
 
-    function runit() {
+     function runit() {
       var prog = `
 import turtle
 t = turtle.Turtle()
@@ -35,9 +35,14 @@ for i in range(200):
       (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
       Sk.TurtleGraphics.width = 600;
       Sk.TurtleGraphics.height = 600;
-      var myPromise = Sk.misceval.asyncToPromise(function() {
-          return Sk.importMainWithBody("<stdin>", false, prog, true);
-      });
+Sk.misceval.asyncToPromise(function() {
+    return Sk.importMainWithBody("<stdin>", false, prog, true);
+}).then(function(mod) {
+    console.log("Éxito: el programa se ejecutó");
+}, function(err) {
+    console.error(err.toString());
+});
+
     }
 
     function builtinRead(x) {
